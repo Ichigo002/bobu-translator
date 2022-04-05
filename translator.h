@@ -23,6 +23,7 @@ private:
 
     bool retrieveTableData();
     QList<QString> retriveTranslationOf(QString word);
+    void chopIf(QString special_letters, QString* input);
 
     QString db_name;
     QList<QString> tabs;

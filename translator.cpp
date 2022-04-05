@@ -25,26 +25,26 @@ void Translator::setDBNameConnection(QString db_c)
 void Translator::exec(QList<QString> argv)
 {
     outargv.clear();
+    QString input;
 
     for(int i=0; i < argv.count(); i++)
     {
+        input = argv.at(i);
         //FORMATTING SENTENCE
+        chopIf(".,!?", &input);
 
-
+        qDebug() << input << " | " << argv.at(i);
         // /FORMATTING
-        QList<QString> trans_word = retriveTranslationOf(argv.at(i));
+        QList<QString> trans_word = retriveTranslationOf(input);
         if(trans_word.count() == 0)
         {
             outargv.push_back(argv.at(i));
         }
         else
         {
-            //???????????????????????????????????
-            if(argv.at(i).contains('.'))
-            {
-                outargv.push_back(trans_word.at(0) + '.');
-                break;
-            }
+            if(argv.at(i).contains('.')) { outargv.push_back(trans_word.at(0) + '.'); break; }
+            if(argv.at(i).contains('?')) { outargv.push_back(trans_word.at(0) + '?'); break; }
+            if(argv.at(i).contains('!')) { outargv.push_back(trans_word.at(0) + '!'); break; }
 
             outargv.push_back(trans_word.at(0));
         }
@@ -129,4 +129,15 @@ QList<QString> Translator::retriveTranslationOf(QString word)
     }
 
     return res;
+}
+
+void Translator::chopIf(QString special_letters, QString *input)
+{
+    for(int i = 0; i < special_letters.length(); i++)
+    {
+        if(input->contains(special_letters[i]))
+        {
+            input->chop(1);
+        }
+    }
 }
