@@ -45,6 +45,7 @@ void Translator::exec(QList<QString> argv)
             if(argv.at(i).contains('.')) { outargv.push_back(trans_word.at(0) + '.'); break; }
             if(argv.at(i).contains('?')) { outargv.push_back(trans_word.at(0) + '?'); break; }
             if(argv.at(i).contains('!')) { outargv.push_back(trans_word.at(0) + '!'); break; }
+            if(argv.at(i).contains(',')) { outargv.push_back(trans_word.at(0) + ','); break; }
 
             outargv.push_back(trans_word.at(0));
         }
